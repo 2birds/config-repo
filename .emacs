@@ -1,8 +1,9 @@
-(setq url-proxy-services ; Behind office proxy.
-      '(("no_proxy" . "^\\(localhost\\|10.*\\)")
-	("http" . "web-proxy.gbr.hp.com:8080")
-	("https" . "web-proxy.gbr.hp.com:8080")
-	("ftp" . "web-proxy.gbr.hp.com:8080")))
+(when (string= (user-login-name) "rhawkins") ; I am at work.
+  (setq url-proxy-services ; Behind office proxy.
+	'(("no_proxy" . "^\\(localhost\\|10.*\\)")
+	  ("http" . "web-proxy.gbr.hp.com:8080")
+	  ("https" . "web-proxy.gbr.hp.com:8080")
+	  ("ftp" . "web-proxy.gbr.hp.com:8080"))))
 
 (add-to-list 'load-path "~/.emacs.d")
 

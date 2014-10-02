@@ -1,11 +1,20 @@
+(add-to-list 'load-path "~/.emacs.d")
+(add-to-list 'load-path "~/.emacs.d/elpa/color-theme-20080305.34")
+
 (when (string= (user-login-name) "rhawkins") ; I am at work.
   (setq url-proxy-services ; Behind office proxy.
 	'(("no_proxy" . "^\\(localhost\\|10.*\\)")
 	  ("http" . "web-proxy.gbr.hp.com:8080")
 	  ("https" . "web-proxy.gbr.hp.com:8080")
-	  ("ftp" . "web-proxy.gbr.hp.com:8080"))))
+	  ("ftp" . "web-proxy.gbr.hp.com:8080")))
+  (load-theme 'tsdh-dark)) ; One of many colour schemes.
 
-(add-to-list 'load-path "~/.emacs.d")
+(when (string= (system-name) "minipooter")
+  (add-to-list 'load-path "~/.emacs.d/evil")
+  (add-to-list 'load-path "~/.emacs.d/slime")
+  (require 'color-theme)
+  (color-theme-initialize)
+  (color-theme-euphoria))
 
 (require 'package)
 (package-initialize) ; Can't find stuff without this line due to broken ELPA.
@@ -14,14 +23,13 @@
 (setq evil-want-C-i-jump nil)
 (require 'evil) ; Vim bindings FTW!
 (evil-mode 1)
-; EVIL mode prevents changing of cursor colour, hence the following hack:
+					; EVIL mode prevents changing of cursor colour, hence the following hack:
 (setq evil-default-cursor (quote (t "#c8c8c8")))
 
 (add-hook 'find-file-hook (lambda ()
 			    (linum-mode 1))) ; Line numbers on file load.
 
 
-(load-theme 'tsdh-dark) ; One of many colour schemes.
 
 (defun insert-file-path ()
   (interactive)
@@ -69,3 +77,4 @@
 (add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
 ;; Optionally, specify the lisp program you are using. Default is "lisp"
 (setq inferior-lisp-program "/usr/bin/sbcl")
+(slime-setup '(slime-fancy))

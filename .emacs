@@ -1,6 +1,16 @@
 (add-to-list 'load-path "~/.emacs.d")
 (add-to-list 'load-path "~/.emacs.d/elpa/color-theme-20080305.34")
 
+(add-to-list 'load-path "~/.emacs.d/slime")
+(require 'slime)
+(slime-setup '(slime-repl))
+(add-hook 'lisp-mode-hook (lambda () (slime-mode t)))
+(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
+;; Optionally, specify the lisp program you are using. Default is "lisp"
+(setq inferior-lisp-program "/usr/bin/sbcl")
+(slime-setup '(slime-fancy))
+
+;; Work
 (when (string= (user-login-name) "rhawkins") ; I am at work.
   (setq url-proxy-services ; Behind office proxy.
 	'(("no_proxy" . "^\\(localhost\\|10.*\\)")
@@ -9,9 +19,10 @@
 	  ("ftp" . "web-proxy.gbr.hp.com:8080")))
   (load-theme 'tsdh-dark)) ; One of many colour schemes.
 
+;; Minipooter
 (when (string= (system-name) "minipooter")
   (add-to-list 'load-path "~/.emacs.d/evil")
-  (add-to-list 'load-path "~/.emacs.d/slime")
+  ;(add-to-list 'load-path "~/.emacs.d/slime")
   (require 'color-theme)
   (color-theme-initialize)
   (color-theme-euphoria))
@@ -70,11 +81,3 @@
 
 (global-set-key "\C-cc" 'jump-to-class)
 
-(add-to-list 'load-path "~/.emacs.d/slime")
-(require 'slime)
-(slime-setup '(slime-repl))
-(add-hook 'lisp-mode-hook (lambda () (slime-mode t)))
-(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
-;; Optionally, specify the lisp program you are using. Default is "lisp"
-(setq inferior-lisp-program "/usr/bin/sbcl")
-(slime-setup '(slime-fancy))

@@ -1,0 +1,39 @@
+;; These are functions I have written to speed up productivity or expand my emacs funtionality
+;; Rob Hawkins, 2014
+
+; Echos highlighted text in the minibuffer, if longer than zero.
+(defun get-highlighted (beg end)
+  (interactive (if (use-region-p)
+		   (list (region-beginning) (region-end))
+		 (list (point-min) (point-min))))
+  (let ((selection (buffer-substring-no-properties beg end)))
+    (if (= (length selection) 0)
+	(message "Empty string")
+      (message selection))))
+
+; Opens highlighted file name.
+(defun open-highlighted (beg end)
+  (interactive (if (use-region-p)
+		   (list (region-beginning) (region-end))
+		 (list (point-min) (point-min))))
+  (let ((selection (buffer-substring-no-properties beg end)))
+    (if (= (length selection) 0)
+	(message "Empty string")
+      (find-file selection))))
+
+(defun select-section (start offset)
+  (interactive)
+  (goto-char start)
+  (transient-mark-mode 1)
+  (set-mark (point))
+  (forward-char offset))
+
+(defun find-next-highlighted (beg end)
+  "Search for highlighted text"
+  (interactive "r")
+  (let (
+	(selection (buffer-substring-no-properties beg end))
+	)
+    (deactivate-mark)
+    (isearch-mode t nil nil nil)
+    (isearch-yank-string selection)))

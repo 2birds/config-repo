@@ -19,6 +19,9 @@
 	  ("ftp" . "web-proxy.gbr.hp.com:8080")))
   (load-theme 'tsdh-dark)) ; One of many colour schemes.
 
+(when (string= (system-name) "lycaeus")
+  (load-theme 'tsdh-dark))
+
 ;; Minipooter
 (when (string= (system-name) "minipooter")
   (add-to-list 'load-path "~/.emacs.d/evil")
@@ -46,8 +49,8 @@
   (interactive)
   (insert (buffer-file-name (window-buffer (minibuffer-selected-window)))))
 
-;(global-set-key (kbd "C-i")
-		;'(insert-file-path))
+					;(global-set-key (kbd "C-i")
+					;'(insert-file-path))
 (defun new-swig-interface (name)
   "Create a new SWIG interface template."
   (interactive "sModule name:")
@@ -55,7 +58,7 @@
 
 ;; Rebinding for EVIL compatibility
 (require 'etags-select)
-;(require 'etags-table)
+					;(require 'etags-table)
 (global-set-key (kbd "C-x ?")
 		'etags-select-find-tag)
 
@@ -64,8 +67,9 @@
 
 
 ; Window switching utility (rather than "C-x o" ad nauseam..)
-(require 'win-switch)
-(global-set-key "\C-xo" 'win-switch-dispatch)
+(when (not (string= (system-name) "lycaeus"))
+  (require 'win-switch)
+  (global-set-key "\C-xo" 'win-switch-dispatch))
 
 
 (require 'psvn)
@@ -73,7 +77,8 @@
 ;  (normal-top-level-add-subdirs-to-load-path))
 
 
-(require 'smooth-scrolling)
+;(require 'smooth-scrolling)
+(require 'smooth-scroll)
 
 (defun jump-to-class ()
   (interactive)

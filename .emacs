@@ -17,6 +17,9 @@
 	  ("http" . "web-proxy.gbr.hp.com:8080")
 	  ("https" . "web-proxy.gbr.hp.com:8080")
 	  ("ftp" . "web-proxy.gbr.hp.com:8080")))
+  (require 'hexview-mode) ; Better hex editor/viewer.
+	;(setq slime-lisp-implementations
+		;'((sbcl ("sbcl" "--core" "/home/rhawkins/emacs.d/sbcl.core-for-slime"))))
   (load-theme 'tsdh-dark)) ; One of many colour schemes.
 
 (when (string= (system-name) "lycaeus")
@@ -78,7 +81,7 @@
 
 
 ;(require 'smooth-scrolling)
-(require 'smooth-scroll)
+;(require 'smooth-scroll)
 
 (defun jump-to-class ()
   (interactive)
@@ -86,3 +89,4 @@
 
 (global-set-key "\C-cc" 'jump-to-class)
 
+(set-face-attribute 'default nil :height 135)
